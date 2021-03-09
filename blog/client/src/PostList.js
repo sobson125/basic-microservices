@@ -7,14 +7,13 @@ export default () => {
     const [posts, setPosts] = useState({});
 
     const fetchPosts = async () => {
-        const response = await axios.get('http://localhost:4000/posts');
+        const response = await axios.get('http://localhost:4002/posts');
+        // console.log(response.data);
         setPosts(response.data);
     };
 
     useEffect(() => {
-
         fetchPosts();
-
     }, []);
 
     const renderedPosts = Object.values(posts).map(post => {
@@ -22,12 +21,10 @@ export default () => {
                 <div className="card-body">
                     <h3>{post.title}</h3>
                     <CommentCreate postId={post.id}/>
-                    <CommentList postId={post.id}/>
+                    <CommentList comments={post.comments}/>
                 </div>
             < /div>
         );
     });
-    console.log(posts);
-
     return <div className='d-flex flex-row flex-wrap justify-content-between'>{renderedPosts}</div>;
 }
