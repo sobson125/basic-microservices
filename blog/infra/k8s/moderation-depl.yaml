@@ -1,32 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: posts-service-depl
+  name: moderation-service-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: posts
+      app: moderation
   template:
     metadata:
       labels:
-        app: posts
+        app: moderation
     spec:
       containers:
-        - name: posts
-          image: sobson/posts-service
-# wszystko w jednym pliku
+        - name: moderation
+          image: sobson/moderation-service
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: posts-clusterip-srv
+  name: moderation-srv
 spec:
   type: ClusterIP
   selector:
-    app: posts
+    app: moderation
   ports:
-    - name: posts
+    - name: moderation
       protocol: TCP
-      port: 4000
-      targetPort: 4000
+      port: 4006
+      targetPort: 4006
