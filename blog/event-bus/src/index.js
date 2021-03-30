@@ -6,7 +6,7 @@ app.use(express.json());
 
 const events = [];
 
-app.get('events', (req, res) => {
+app.get('/events', (req, res) => {
     res.send(events);
 });
 
@@ -14,7 +14,6 @@ app.get('events', (req, res) => {
 app.post('/events', async (req, res) => {
     const event = req.body;
     events.push(event);
-    console.log(event.type);
     await axios.post('http://posts-clusterip-srv:4000/events', event).catch((err) => {
         console.log(err);
     });
